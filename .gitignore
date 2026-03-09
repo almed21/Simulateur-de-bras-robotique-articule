@@ -1,0 +1,29 @@
+# Dossiers de compilation 
+build/
+bin/
+obj/
+out/
+
+# Fichiers compilés 
+*.o
+*.obj
+*.so
+*.dylib
+*.dll
+*.a
+*.lib
+
+# Exécutables
+*.exe
+*.out
+*.app
+
+# Fichiers d'Environnement / IDE (Visual Studio, VS Code, CLion, etc.)
+.vscode/
+.idea/
+*.suo
+*.user
+*.sln
+*.vcxproj
+*.vcxproj.filters
+
