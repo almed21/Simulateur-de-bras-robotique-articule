@@ -30,3 +30,20 @@ Projet en binôme, 4 séances de 4h. Le sujet modélise en C++17 un bras robotiq
 #### b. Pourquoi ne peut-on pas utiliser le constructeur de copie par défaut directement depuis CBras ?
 
 > Parce que CBras va stocker des std::unique_ptr<CJoint>. On ne peut pas copier directement un unique_ptr, ni deviner le type dérivé exact (Revolute ou Prismatic) juste à partir d'un pointeur CJoint. La méthode clone() résout ça en créant un nouvel objet du bon type dynamique.
+
+## Exercice 2
+### 1. Classe CBras
+#### a. Pourquoi addJoint() prend un unique_ptr par valeur et requiert std::move() à l’appel ?
+
+> Elle prend un unique_ptr par valeur pour forcer le transfert de propriété.
+> std::move() est requis à l'appel car un unique_ptr ne peut pas être copié, il doit être "déplacé" (moved) pour garantir qu'il n'y a qu'un seul propriétaire en mémoire.
+
+#### b. Pourquoi CBras n’est-elle pas copiable par défaut ?
+
+> Parce qu'elle contient un std::vector de std::unique_ptr. 
+> Les unique_ptr interdisent la copie par essence (pour éviter de libérer deux fois la même mémoire). 
+> Le compilateur supprime donc automatiquement le constructeur de copie de CBras.
+
+#### c. Quel est le type de retour de operator« et pourquoi retourner std::ostream& ?
+
+>  On retourne std::ostream& pour permettre le chaînage
