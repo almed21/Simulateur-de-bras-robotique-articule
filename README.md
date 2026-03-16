@@ -47,3 +47,14 @@ Projet en binôme, 4 séances de 4h. Le sujet modélise en C++17 un bras robotiq
 #### c. Quel est le type de retour de operator« et pourquoi retourner std::ostream& ?
 
 >  On retourne std::ostream& pour permettre le chaînage
+
+### 2. Cinématique directe
+#### a. Comparer A * B (Eigen) à une boucle triple manuelle. Citer deux avantages concrets.
+
+> 1. Syntaxe beaucoup plus lisible et proche des mathématiques.
+> 2. Eigen optimise automatiquement les calculs avec des instructions vectorielles.
+
+#### b. Quelle méthode de pinocchio::SE3 retourne la Eigen::Matrix4d équivalente ? Comment comparer les deux résultats numériquement ?
+
+> 1. La méthode de la classe pinocchio::SE3 qui permet d'extraire et de retourner la matrice homogène 4x4 équivalente au format Eigen::Matrix4d est toHomogeneousMatrix().
+> 2. Pour comparer les deux résultats numériquement, on calcule l'erreur de Frobenius (la norme de la différence entre les deux matrices) qui doit être proche de zéro (inférieure à 10^(-10)). En code Eigen, cela se traduit simplement par la méthode matrice_A.isApprox(matrice_B, 1e-10).
