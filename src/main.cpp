@@ -8,7 +8,7 @@
 using namespace std;
 
 int main() {
-    // Instanciation du bras [cite: 45]
+    // Instanciation du bras 
     CBras bras; 
 
     // Ajout des 3 joints avec std::make_unique (qui effectue le new en toute sécurité)
@@ -19,7 +19,7 @@ int main() {
     // Pour le prismatique : q_init, q_min, q_max
     bras.addJoint(make_unique<CJointPrismatic>(0.0, 0.5, 0.1));
 
-    // Affichage du bras grâce à notre surcharge de l'opérateur << [cite: 54]
+    // Affichage du bras grâce à notre surcharge de l'opérateur <<
     cout << bras << endl;
 
     // --- Bonus : Testons la cinématique directe ! ---

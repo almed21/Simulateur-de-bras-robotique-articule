@@ -43,12 +43,12 @@ public:
     // On ne pourra jamais faire "CJoint joint;", on devra instancier ses filles.
     // ========================================================================
     
-    // Calcule et retourne la matrice de transformation homogène 4x4 [cite: 18, 21]
+    // Calcule et retourne la matrice de transformation homogène 4x4 
     virtual Mat4 getTransform() const = 0;
 
-    // Retourne le type de joint en string (ex: "Revolute" ou "Prismatic") [cite: 19, 22]
+    // Retourne le type de joint en string (ex: "Revolute" ou "Prismatic") 
     virtual std::string getTypeName() const = 0;
 
-    // Crée une copie profonde polymorphique (indispensable pour la classe CBras) [cite: 20, 23]
+    // Crée une copie profonde polymorphique (indispensable pour la classe CBras)
     virtual std::unique_ptr<CJoint> clone() const = 0;
 };
