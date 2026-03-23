@@ -20,7 +20,7 @@ TEST(BrasTest, EmptyArmFKReturnsIdentity) {
 TEST(BrasTest, SingleRevoluteJointTranslation) {
     CBras bras;
     // Ajout d'1 joint : theta = 0, qMin = -pi, qMax = pi, dx = 0.5 m
-    bras.addJoint(std::make_unique<CJointRevolute>(0.0, -M_PI, M_PI, 0.5));
+    bras.addJoint(std::make_unique<CJointRevolute>(-M_PI, M_PI, 0.0, 0.5));
     
     Mat4 T = bras.computeFK();
     
@@ -38,7 +38,7 @@ TEST(BrasTest, SingleRevoluteJointTranslation) {
 // ========================================================================
 TEST(BrasTest, GetJointOutOfBoundsThrows) {
     CBras bras;
-    bras.addJoint(std::make_unique<CJointRevolute>(0.0, -M_PI, M_PI, 0.5));
+    bras.addJoint(std::make_unique<CJointRevolute>(-M_PI, M_PI, 0.0, 0.5));
     // N = 1 (il y a 1 joint, donc l'indice valide est 0)
     
     // Vérification que l'indice 1 (qui est >= N) lève bien l'exception

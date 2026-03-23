@@ -17,7 +17,7 @@ protected:
 
 public:
     // Petit constructeur pratique pour forcer l'initialisation propre des variables
-    CJoint(double q_init, double q_min, double q_max) 
+    CJoint(double q_min, double q_max, double q_init) 
         : q_(q_init), qMin_(q_min), qMax_(q_max) {}
 
     // Destructeur virtuel pour assurer une destruction correcte des objets dérivés via un pointeur de base

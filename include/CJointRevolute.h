@@ -10,8 +10,8 @@ private:
 
 public:
     // Constructeur : on initialise la classe de base (CJoint) et notre attribut spécifique dx_
-    CJointRevolute(double q_init, double q_min, double q_max, double dx)
-        : CJoint(q_init, q_min, q_max), dx_(dx) {}
+    CJointRevolute(double q_min, double q_max, double q_init, double dx)
+        : CJoint(q_min, q_max, q_init), dx_(dx) {}
 
     // ========================================================================
     // IMPLÉMENTATION DES MÉTHODES VIRTUELLES PURES DE LA CLASSE MÈRE

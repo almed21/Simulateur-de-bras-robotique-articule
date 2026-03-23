@@ -9,8 +9,8 @@ public:
     // Constructeur : on initialise la classe de base (CJoint).
     // Contrairement au Revolute, le sujet ne mentionne pas de lien fixe "dx" 
     // pour le joint prismatique, donc on ne prend que les butées et la position.
-    CJointPrismatic(double q_init, double q_min, double q_max)
-        : CJoint(q_init, q_min, q_max) {}
+    CJointPrismatic(double q_min, double q_max, double q_init)
+        : CJoint(q_min, q_max, q_init) {}
 
     // ========================================================================
     // IMPLÉMENTATION DES MÉTHODES VIRTUELLES PURES

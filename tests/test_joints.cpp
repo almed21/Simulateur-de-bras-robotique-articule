@@ -11,7 +11,7 @@ TEST(JointTest, CompareWithPinocchioPiOver4) {
     double dx = 2.0; // Valeur arbitraire pour le test
 
     // 1. Notre implémentation
-    CJointRevolute joint(theta, -M_PI, M_PI, dx);
+    CJointRevolute joint(-M_PI, M_PI, theta, dx);
     Mat4 my_T = joint.getTransform();
 
     // 2. Implémentation Pinocchio
@@ -44,7 +44,7 @@ TEST(JointTest, CompareWithPinocchioPiOver4) {
 // ========================================================================
 TEST(JointTest, SetQOutOfBoundsThrowsException) {
     // Création d'un joint avec des butées entre -1.0 et 1.0
-    CJointRevolute joint(0.0, -1.0, 1.0, 0.5);
+    CJointRevolute joint(-1.0, 1.0, 0.0, 0.5);
 
     // On vérifie qu'une valeur au-delà de qMax lève bien std::out_of_range
     EXPECT_THROW(joint.setQ(2.0), std::out_of_range);
@@ -61,7 +61,7 @@ TEST(JointTest, SetQOutOfBoundsThrowsException) {
 // ========================================================================
 TEST(JointTest, RevoluteTransformIdentity) {
     // theta = 0.0, qMin = -pi, qMax = pi, dx = 0.0
-    CJointRevolute joint(0.0, -3.14159, 3.14159, 0.0);
+    CJointRevolute joint(-3.14159, 3.14159, 0.0, 0.0);
 
     Mat4 T = joint.getTransform();
     Mat4 I4 = Mat4::Identity();
@@ -76,7 +76,7 @@ TEST(JointTest, RevoluteTransformIdentity) {
 // ========================================================================
 TEST(JointTest, PrismaticTransformTranslation) {
     // d (ou q) = 1.0, qMin = 0.0, qMax = 2.0
-    CJointPrismatic joint(1.0, 0.0, 2.0);
+    CJointPrismatic joint(0.0, 2.0, 1.0);
 
     Mat4 T = joint.getTransform();
     
@@ -93,7 +93,7 @@ TEST(JointTest, PrismaticTransformTranslation) {
 TEST(JointTest, RevoluteTransformPiOver4) {
     double pi_4 = 3.14159265358979323846 / 4.0;
     // theta = pi/4, dx = 2.0
-    CJointRevolute joint(pi_4, -3.14, 3.14, 2.0);
+    CJointRevolute joint(-3.14, 3.14, pi_4, 2.0);
 
     Mat4 T = joint.getTransform();
 
