@@ -14,6 +14,10 @@ Projet en binôme, 4 séances de 4h. Le sujet modélise en C++17 un bras robotiq
 sudo apt update
 sudo apt install build-essential libgtest-dev valgrind
 
+### installation ur5
+1. telecharger l'urdf: "wget https://raw.githubusercontent.com/uwgraphics/RelaxedIK/master/urdfs/ur5.urdf"
+2. definir le chemin: "export LD_LIBRARY_PATH=$CONDA_PREFIX/lib:$LD_LIBRARY_PATH"
+
 ## Réponses au questions
 
 ### Exercice 1
