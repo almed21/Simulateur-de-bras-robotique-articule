@@ -1,5 +1,6 @@
 #include "CBras.h"
 #include <iomanip>  // Pour std::fixed et std::setprecision
+#include <algorithm> // Pour std::swap
 
 void CBras::addJoint(std::unique_ptr<CJoint> joint) {
     joints_.push_back(std::move(joint));  // Prend ownership via move
@@ -46,4 +47,52 @@ std::ostream& operator<<(std::ostream& os, const CBras& bras) {
            << j.getMin() << ", " << j.getMax() << "]" << std::endl;
     }
     return os;
+}
+
+// --- Implémentation de la Règle des Cinq ---
+
+CBras::CBras(const CBras& other) {
+    // Copie profonde en utilisant le polymorphisme (clone)
+    for (const auto& joint : other.joints_) {
+        joints_.push_back(joint->clone());
+    }
+}
+
+CBras& CBras::operator=(CBras other) {
+    // Copy-and-swap idiom : 'other' est une copie locale.
+    // On échange nos données avec cette copie.
+    std::swap(joints_, other.joints_);
+    return *this;
+    // En sortant de la fonction, 'other' est détruit et emporte nos anciennes données.
+}
+
+// --- Implémentation de l'interface Eigen ---
+
+Eigen::VectorXd CBras::getQ() const {
+    Eigen::VectorXd q(joints_.size());
+    for (size_t i = 0; i < joints_.size(); ++i) {
+        q[i] = joints_[i]->getQ();
+    }
+    return q;
+}
+
+void CBras::setQ(const Eigen::VectorXd& q) {
+    if (static_cast<size_t>(q.size()) != joints_.size()) {
+        throw std::invalid_argument("Erreur : La taille du vecteur ne correspond pas aux DDL du bras.");
+    }
+    for (size_t i = 0; i < joints_.size(); ++i) {
+        joints_[i]->setQ(q[i]);
+    }
+}
+
+Eigen::VectorXd CBras::random() const {
+    Eigen::VectorXd q_rand(joints_.size());
+    // On génère une valeur entre qMin et qMax
+    for (size_t i = 0; i < joints_.size(); ++i) {
+        double min = joints_[i]->getMin();
+        double max = joints_[i]->getMax();
+        double r = static_cast<double>(std::rand()) / RAND_MAX;
+        q_rand[i] = min + r * (max - min);
+    }
+    return q_rand;
 }

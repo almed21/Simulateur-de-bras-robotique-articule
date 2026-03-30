@@ -49,6 +49,6 @@ public:
     // Retourne le type de joint en string (ex: "Revolute" ou "Prismatic") 
     virtual std::string getTypeName() const = 0;
 
-    // Crée une copie profonde polymorphique (indispensable pour la classe CBras)
+    // Crée une copie profonde polymorphique 
     virtual std::unique_ptr<CJoint> clone() const = 0;
 };

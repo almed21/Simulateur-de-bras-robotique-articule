@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 #include "CBras.h"
 #include "CJointRevolute.h"
+#include "CJointPrismatic.h"
 #include <Eigen/Dense>
 
 // ========================================================================
@@ -46,4 +47,23 @@ TEST(BrasTest, GetJointOutOfBoundsThrows) {
     
     // L'indice 0 ne doit rien lever
     EXPECT_NO_THROW(bras.getJoint(0));
+}
+
+// ========================================================================
+// Test Exercice 3 - 2.b : Idempotence de setQ(getQ())
+// ========================================================================
+TEST(BrasTest, SetQGetQIsIdempotent) {
+    CBras bras;
+    bras.addJoint(std::make_unique<CJointRevolute>(-M_PI, M_PI, 0.5, 0.3));
+    bras.addJoint(std::make_unique<CJointPrismatic>(0.0, 1.0, 0.2));
+
+    // On sauvegarde l'état initial
+    Eigen::VectorXd q_initial = bras.getQ();
+    
+    // On réapplique cet état
+    EXPECT_NO_THROW(bras.setQ(q_initial));
+    
+    // On vérifie que rien n'a changé
+    Eigen::VectorXd q_final = bras.getQ();
+    EXPECT_TRUE(q_initial.isApprox(q_final, 1e-10));
 }
